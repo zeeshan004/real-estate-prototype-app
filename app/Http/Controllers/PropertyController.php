@@ -14,7 +14,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        //
+        return Property::latest()->get();
     }
 
     /**
