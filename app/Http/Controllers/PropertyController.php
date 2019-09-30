@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Model\Property;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\PropertyResource;
+use App\Http\Requests\QuestionRequest;
 
 class PropertyController extends Controller
 {
@@ -14,7 +17,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return Property::latest()->get();
+        return PropertyResource::collection(Property::latest()->get());
     }
 
     /**
@@ -35,7 +38,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // auth()->user->question()->create($urequest->all());
+        Property::create($request->all());
+        return response('Property created!',200);
     }
 
     /**
@@ -46,7 +51,7 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        //
+        return new PropertyResource($property);
     }
 
     /**
@@ -69,7 +74,8 @@ class PropertyController extends Controller
      */
     public function update(Request $request, Property $property)
     {
-        //
+        $property ->update($request->all());
+        return response('Updated',200);
     }
 
     /**
@@ -80,6 +86,7 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
-        //
+        $property->delete();
+        return response('Deleted',200);
     }
 }
