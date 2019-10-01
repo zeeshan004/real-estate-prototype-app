@@ -13,7 +13,7 @@ class Property extends Model
     {
       return 'slug';
     }
-    
+
     //protected $fillable = ['builder_id','category_id','title','slug','description','logo'];
     protected $guarded = [];
 
@@ -33,6 +33,11 @@ class Property extends Model
 
     public function category() {
       return $this->belongsTo(Category::class);
+    }
+
+    public function like()
+    {
+      return $this->hasMany(Like::class);
     }
 
 }

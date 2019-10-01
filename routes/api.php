@@ -6,6 +6,10 @@ Route::apiResource('/builder/{builder}/property','PropertyController');
 
 Route::apiResource('/category','CategoryController');
 
+Route::post('/like/{property}', 'LikeController@likeIt');
+
+Route::delete('/like/{property}', 'LikeController@unLikeIt');
+
 // use Illuminate\Http\Request;
 
 /*

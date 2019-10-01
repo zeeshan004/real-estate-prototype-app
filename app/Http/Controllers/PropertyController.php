@@ -77,7 +77,7 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Builder $builder, Request $request, Property $property)
-    {
+    { 
         $property ->update($request->all());
         return response('Updated',200);
     }
