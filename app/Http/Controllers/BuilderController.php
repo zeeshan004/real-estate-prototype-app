@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Model\Builder;
 use Illuminate\Http\Request;
 
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\BuilderResource;
+use App\Http\Requests\BuilderRequest;
+
 class BuilderController extends Controller
 {
     /**
@@ -14,7 +18,7 @@ class BuilderController extends Controller
      */
     public function index()
     {
-        //
+        return BuilderResource::collection(Builder::latest()->get());
     }
 
     /**
@@ -35,7 +39,9 @@ class BuilderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // auth()->user->question()->create($urequest->all());
+      Builder::create($request->all());
+      return response('Builder created!',200);
     }
 
     /**
@@ -46,7 +52,7 @@ class BuilderController extends Controller
      */
     public function show(Builder $builder)
     {
-        //
+        return new BuilderResource($builder);
     }
 
     /**
@@ -69,7 +75,8 @@ class BuilderController extends Controller
      */
     public function update(Request $request, Builder $builder)
     {
-        //
+      $builder ->update($request->all());
+      return response('Builder Updated',200);
     }
 
     /**
@@ -80,6 +87,7 @@ class BuilderController extends Controller
      */
     public function destroy(Builder $builder)
     {
-        //
+      $builder->delete();
+      return response('Builder Deleted',200);
     }
 }

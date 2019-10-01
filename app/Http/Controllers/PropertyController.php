@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Model\Property;
+use App\Model\Builder;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\PropertyResource;
-use App\Http\Requests\QuestionRequest;
+use App\Http\Requests\PropertyRequest;
 
 class PropertyController extends Controller
 {
@@ -15,9 +16,11 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Builder $builder)
     {
-        return PropertyResource::collection(Property::latest()->get());
+        //return $builder;
+        return PropertyResource::collection($builder->properties);
+        //return PropertyResource::collection(Property::latest()->get());
     }
 
     /**
@@ -36,11 +39,12 @@ class PropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Builder $builder, Request $request)
     {
         // auth()->user->question()->create($urequest->all());
-        Property::create($request->all());
-        return response('Property created!',200);
+        //Property::create($request->all());
+        $property = $builder->properties()->create($request->all());
+        return response(['property' => new PropertyResource($property)],200);
     }
 
     /**
@@ -49,7 +53,7 @@ class PropertyController extends Controller
      * @param  \App\Model\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show(Builder $builder, Property $property)
     {
         return new PropertyResource($property);
     }
@@ -72,7 +76,7 @@ class PropertyController extends Controller
      * @param  \App\Model\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(Builder $builder, Request $request, Property $property)
     {
         $property ->update($request->all());
         return response('Updated',200);
@@ -84,7 +88,7 @@ class PropertyController extends Controller
      * @param  \App\Model\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy(Builder $builder, Property $property)
     {
         $property->delete();
         return response('Deleted',200);

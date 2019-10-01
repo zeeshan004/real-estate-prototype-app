@@ -1,7 +1,8 @@
 <?php
 
-Route::apiResource('/property','PropertyController');
+Route::apiResource('/builder','BuilderController');
 
+Route::apiResource('/builder/{builder}/property','PropertyController');
 
 Route::apiResource('/category','CategoryController');
 

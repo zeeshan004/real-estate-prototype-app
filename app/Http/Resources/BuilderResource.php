@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PropertyResource extends JsonResource
+class BuilderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,10 @@ class PropertyResource extends JsonResource
     {
         return [
         'title' => $this->title,
-        // 'path' => $this->path,
-         'description' => $this->description,
-         'logo' => $this->logo,
-         'builder' => $this->builder->title,
+        'path' => $this->path,
+        'description' => $this->description,
+        'logo' => $this->logo,
+        //'builder' => $this->builder->name,
         'created_at' => $this->created_at->diffForHumans()
       ];
     }
