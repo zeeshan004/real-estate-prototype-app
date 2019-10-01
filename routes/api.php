@@ -2,6 +2,9 @@
 
 Route::apiResource('/property','PropertyController');
 
+
+Route::apiResource('/category','CategoryController');
+
 // use Illuminate\Http\Request;
 
 /*
