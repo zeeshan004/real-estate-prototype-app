@@ -10,6 +10,20 @@ Route::post('/like/{property}', 'LikeController@likeIt');
 
 Route::delete('/like/{property}', 'LikeController@unLikeIt');
 
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
+
 // use Illuminate\Http\Request;
 
 /*
